@@ -154,7 +154,7 @@ SELECT
 	cp.payroll_year,
 	cp.payroll_quarter,
 	cpib.name,
-	avg(value) AS average
+	AVG(value) AS average
 FROM czechia_payroll cp 
 LEFT JOIN czechia_payroll_industry_branch cpib 
 ON cp.industry_branch_code = cpib.code
