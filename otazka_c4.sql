@@ -115,7 +115,7 @@ SELECT DISTINCT
 	cp1.previous_average_potraviny,
 	CASE 
 		WHEN previous_average_potraviny = 0 THEN NULL 
-		ELSE round(((average_potraviny - previous_average_potraviny)/previous_average_potraviny)*100, 1)
+		ELSE round(((average_potraviny - previous_average_potraviny)/previous_average_potraviny)*100, 2)
 	END AS ratio
 FROM base cp1
 GROUP BY 
@@ -271,3 +271,25 @@ LEFT JOIN
 	t_tereza_jurakova_demo_ratio_mzdy cp1
 ON
 	cp.payroll_year = cp1.payroll_year;
+-- celoroční průměr potravin
+SELECT 
+	cp.payroll_year,
+	cp.ratio_potravin,
+	round(avg(ratio_potravin),1) AS year_ratio
+FROM 
+	t_tereza_jurakova_demo_ratio_potraviny cp
+GROUP BY 
+	cp.payroll_year
+ORDER BY 
+	cp.payroll_year;
+-- celoroční průměr mezd
+SELECT 
+	cp.payroll_year,
+	cp.ratio_mzdy,
+	round(avg(ratio_mzdy),1) AS year_ratio_mzdy
+FROM 
+	t_tereza_jurakova_demo_ratio_mzdy cp
+GROUP BY 
+	cp.payroll_year
+ORDER BY 
+	cp.payroll_year;
